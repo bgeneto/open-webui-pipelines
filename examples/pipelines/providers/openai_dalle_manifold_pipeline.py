@@ -21,7 +21,12 @@ class Pipeline:
         self.type = "manifold"
         self.name = "ImageGen: "
 
-        self.valves = self.Valves()
+        self.valves = self.Valves(
+            **{
+                "OPENAI_IMG_API_KEY": os.getenv("OPENAI_IMG_API_KEY", "your-api-key-here"),
+                "OPENAI_API_BASE_URL": os.getenv("OPENAI_API_BASE_URL", "https://api.openai.com/v1"),
+            }
+        )
         self.client = OpenAI(
             base_url=self.valves.OPENAI_API_BASE_URL,
             api_key=self.valves.OPENAI_IMG_API_KEY,
