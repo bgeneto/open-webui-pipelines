@@ -152,10 +152,11 @@ class Pipeline:
         return name.lower().strip()
 
     async def inlet(self, body: dict, user: Optional[dict] = None) -> dict:
-        # body = self._deduplicate_files(body)
+        body = self._deduplicate_files(body)
         return body
 
     async def outlet(self, body: dict, user: Optional[dict] = None) -> dict:
+        body = self._deduplicate_files(body)
         messages = body.get("messages", [])
         model = self._sanitize_model_name(body.get("model"))
 
