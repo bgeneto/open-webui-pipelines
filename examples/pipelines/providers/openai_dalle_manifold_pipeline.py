@@ -1,10 +1,11 @@
 """A manifold to integrate OpenAI's ImageGen models into Open-WebUI"""
 
-from typing import List, Union, Generator, Iterator
-
-from pydantic import BaseModel
+import os
+from typing import Generator, Iterator, List, Union
 
 from openai import OpenAI
+from pydantic import BaseModel
+
 
 class Pipeline:
     """OpenAI ImageGen pipeline"""
@@ -21,11 +22,17 @@ class Pipeline:
         self.type = "manifold"
         self.name = "ImageGen: "
 
-        self.valves = self.Valves(**{
-            "OPENAI_IMG_API_KEY": os.getenv("OPENAI_IMG_API_KEY", "your-api-key-here"),
-            "OPENAI_API_BASE_URL": os.getenv("OPENAI_API_BASE_URL", "https://api.openai.com/v1")
-        })
-        
+        self.valves = self.Valves(
+            **{
+                "OPENAI_IMG_API_KEY": os.getenv(
+                    "OPENAI_IMG_API_KEY", "your-api-key-here"
+                ),
+                "OPENAI_API_BASE_URL": os.getenv(
+                    "OPENAI_API_BASE_URL", "https://api.openai.com/v1"
+                ),
+            }
+        )
+
         self.client = OpenAI(
             base_url=self.valves.OPENAI_API_BASE_URL,
             api_key=self.valves.OPENAI_IMG_API_KEY,
