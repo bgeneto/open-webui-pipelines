@@ -6,7 +6,7 @@ from jina import Client, DocumentArray, Document
 
 class Pipeline:
     class Valves(BaseModel):
-        JINA_API_URL: str = "http://localhost:45678"
+        JINA_API_URL: str = "https://api.jina.ai/v1"
         JINA_MODEL: str = "jina-embeddings-v3"
         DATA_PATH: str = "/app/backend/data/docs"
 
