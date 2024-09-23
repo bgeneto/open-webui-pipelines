@@ -13,7 +13,7 @@ class Pipeline:
         """Options to change from the WebUI"""
 
         OPENAI_API_BASE_URL: str = "https://api.openai.com/v1"
-        OPENAI_API_KEY: str = ""
+        OPENAI_IMG_API_KEY: str = ""
         IMAGE_SIZE: str = "1024x1024"
         NUM_IMAGES: int = 1
 
@@ -24,7 +24,7 @@ class Pipeline:
         self.valves = self.Valves()
         self.client = OpenAI(
             base_url=self.valves.OPENAI_API_BASE_URL,
-            api_key=self.valves.OPENAI_API_KEY,
+            api_key=self.valves.OPENAI_IMG_API_KEY,
         )
 
         self.pipelines = self.get_openai_assistants()
@@ -42,7 +42,7 @@ class Pipeline:
         print(f"on_valves_updated:{__name__}")
         self.client = OpenAI(
             base_url=self.valves.OPENAI_API_BASE_URL,
-            api_key=self.valves.OPENAI_API_KEY,
+            api_key=self.valves.OPENAI_IMG_API_KEY,
         )
         self.pipelines = self.get_openai_assistants()
 
@@ -53,7 +53,7 @@ class Pipeline:
             List[dict]: The list of ImageGen models
         """
 
-        if self.valves.OPENAI_API_KEY:
+        if self.valves.OPENAI_IMG_API_KEY:
             models = self.client.models.list()
             return [
                 {
